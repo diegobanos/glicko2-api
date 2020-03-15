@@ -1,11 +1,37 @@
 language: php
+sudo: false
 
-php:
-  - 7.3
-  - 7.4
+cache:
+  directories:
+    - $HOME/.composer/cache/files
+    - ./bin/.phpunit
 
 env:
-  - DB=SQLITE
-    
+  global:
+    - SYMFONY_PHPUNIT_DIR=./bin/.phpunit
+    - SYMFONY_DEPRECATIONS_HELPER=9
+    - ACTION="install"
+
+matrix:
+  fast_finish: true
+  include:
+    - php: 7.3
+      env: SYMFONY="5.0.*"
+           ACTION="update"
+    - php: 7.4
+
+before_install:
+  - '[[ "$TRAVIS_PHP_VERSION" == "7.4snapshot" ]] || phpenv config-rm xdebug.ini'
+  - composer self-update
+  - '[[ "$ACTION" == "install" ]] || composer config minimum-stability dev'
+  - '[[ "$ACTION" == "install" ]] || composer config extra.symfony.require $SYMFONY'
+
 install:
-  - composer install --no-interaction
+  - php -r "echo ini_get('memory_limit').PHP_EOL;"
+  - composer $ACTION
+  - ./bin/phpunit install
+
+script:
+  - ./bin/phpunit
+  - ./bin/console doctrine:schema:validate --skip-sync -vvv --no-interaction
+  - composer validate
