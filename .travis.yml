@@ -4,5 +4,8 @@ php:
   - 7.3
   - 7.4
 
+env:
+  - DB=SQLITE
+    
 install:
   - composer install --no-interaction
