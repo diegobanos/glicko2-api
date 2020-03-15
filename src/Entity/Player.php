@@ -9,10 +9,15 @@ use Doctrine\ORM\Mapping as ORM;
 class Player
 {
     /**
-     * @ORM\Id
      * @ORM\Column(type="string")
      */
     private $identifier;
+
+    /**
+     * @ORM\ManyToOne(targetEntity="Application")
+     * @ORM\JoinColumn(name="application_identifier", referencedColumnName="identifier")
+     */
+    private $application;
 
     /**
      * @ORM\Column(type="integer")
