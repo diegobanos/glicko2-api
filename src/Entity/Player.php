@@ -9,6 +9,7 @@ use Doctrine\ORM\Mapping as ORM;
 class Player
 {
     /**
+     * @ORM\Id
      * @ORM\Column(type="string")
      */
     private $identifier;
