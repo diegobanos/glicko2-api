@@ -1,5 +1,4 @@
 language: php
-sudo: false
 
 php:
   - 7.3
@@ -10,5 +9,3 @@ install:
 
 script:
   - ./bin/phpunit
-  - ./bin/console doctrine:schema:validate --skip-sync -vvv --no-interaction
-  - composer validate
