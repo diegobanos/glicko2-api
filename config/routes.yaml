@@ -1,3 +1,4 @@
-app_hello_world:
-  path: /
-  controller: App\Controller\MainController::index
+app_application_create:
+  path: /applications
+  methods: [post]
+  controller: App\Controller\ApplicationController::create

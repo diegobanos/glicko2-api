@@ -3,13 +3,13 @@ namespace App\Tests\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
 
-class MainControllerTest extends WebTestCase
+class ApplicationControllerTest extends WebTestCase
 {
     public function testIndex()
     {
         $client  = static::createClient();
 
-        $client->request('GET', '/');
+        $client->request('POST', '/applications');
 
         $this->assertEquals(200, $client->getResponse()->getStatusCode());
     }
